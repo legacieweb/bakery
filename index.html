@@ -2221,7 +2221,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2025 Sweet Delights Bakery. All rights reserved. | <span class="powered-by">powered by iyonicorp</span></p>
+        <p>&copy; 2026 Sweet Delights Bakery. All rights reserved. | <span class="powered-by">powered by iyonicorp</span></p>
       </div>
     </div>
   </footer>
@@ -2327,11 +2327,11 @@
     // Menu Tab Functionality
     function handleMenuTabs() {
       const tabs = document.querySelectorAll('.menu-tab');
-      const menuItems = document.querySelectorAll('.menu-item');
 
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
           const category = tab.getAttribute('data-category');
+          const menuItems = document.querySelectorAll('.menu-item');
           
           // Update active tab
           tabs.forEach(t => t.classList.remove('active'));
@@ -2351,7 +2351,7 @@
     }
 
     // Auth & Backend Integration
-    const API_URL = 'http://localhost:5001/api';
+    const API_URL = 'https://bakery-b1ty.onrender.com/api';
     let user = null;
     let token = localStorage.getItem('bakery_token');
     let productsFetched = false;
@@ -2594,6 +2594,20 @@
           </div>
         </div>
       `).join('');
+
+      // Apply current filter after rendering
+      const activeTab = document.querySelector('.menu-tab.active');
+      if (activeTab && activeTab.getAttribute('data-category') !== 'all') {
+        const category = activeTab.getAttribute('data-category');
+        const items = menuGrid.querySelectorAll('.menu-item');
+        items.forEach(item => {
+          if (item.getAttribute('data-category') !== category) {
+            item.style.display = 'none';
+          } else {
+            item.style.display = 'block';
+          }
+        });
+      }
     }
 
     // Shopping Cart Functionality
