@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sweet Delights Bakery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        dancing: ['Dancing Script', 'cursive'],
+                    },
+                    colors: {
+                        primary: '#d4a574',
+                        'primary-focus': '#b8956a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #faf7f0;
+        }
+        .hero-pattern {
+            background-color: #3e2723;
+            background-image: radial-gradient(circle at 2px 2px, rgba(212, 165, 116, 0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-lg px-4 md:px-8 sticky top-0 z-50">
+        <div class="flex-1">
+            <a href="index.html" class="flex items-center gap-2 text-2xl font-dancing font-bold text-primary">
+                <i class="fas fa-bread-slice text-xl"></i>
+                Sweet Delights
+            </a>
+        </div>
+        <div class="flex-none gap-2">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar online">
+                    <div class="w-10 rounded-full bg-primary text-primary-content flex items-center justify-center font-bold text-xl" id="userAvatar">
+                        U
+                    </div>
+                </div>
+                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                    <li class="menu-title font-bold text-base-content" id="userName">User</li>
+                    <li><a href="index.html#menu"><i class="fas fa-store"></i> Shop</a></li>
+                    <li><button onclick="logout()" class="text-error"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto p-4 md:p-8 space-y-8">
+        <!-- Hero Section -->
+        <section class="hero hero-pattern rounded-3xl overflow-hidden text-white shadow-2xl animate-fadeIn">
+            <div class="hero-content text-center py-12 md:py-20 flex-col">
+                <div class="max-w-2xl">
+                    <h1 class="text-4xl md:text-6xl font-dancing font-bold text-primary mb-4">
+                        Welcome back, <span id="welcomeName" class="text-white">User</span>!
+                    </h1>
+                    <p class="text-lg md:text-xl opacity-90 mb-8">
+                        Track your orders and explore our latest fresh baked delights.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="index.html#menu" class="btn btn-primary btn-lg rounded-full">
+                            <i class="fas fa-shopping-cart"></i> Browse Menu
+                        </a>
+                        <button onclick="refreshOrders()" class="btn btn-outline btn-lg rounded-full border-white text-white hover:bg-white hover:text-brown-900">
+                            <i class="fas fa-sync-alt"></i> Refresh Orders
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fadeIn" style="animation-delay: 0.1s;">
+            <div class="stat bg-base-100 shadow-xl rounded-2xl border-l-4 border-primary">
+                <div class="stat-figure text-primary text-3xl">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="stat-title font-semibold">Total Orders</div>
+                <div class="stat-value text-primary" id="totalOrders">0</div>
+                <div class="stat-desc text-base-content/60">Across your history</div>
+            </div>
+            
+            <div class="stat bg-base-100 shadow-xl rounded-2xl border-l-4 border-info">
+                <div class="stat-figure text-info text-3xl">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-title font-semibold">In Progress</div>
+                <div class="stat-value text-info" id="pendingOrders">0</div>
+                <div class="stat-desc text-base-content/60">Pending & Processing</div>
+            </div>
+            
+            <div class="stat bg-base-100 shadow-xl rounded-2xl border-l-4 border-success">
+                <div class="stat-figure text-success text-3xl">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-title font-semibold">Completed</div>
+                <div class="stat-value text-success" id="completedOrders">0</div>
+                <div class="stat-desc text-base-content/60">Successfully delivered</div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <!-- Profile Column -->
+            <section class="lg:col-span-1 space-y-6 animate-fadeIn" style="animation-delay: 0.2s;">
+                <div class="card bg-base-100 shadow-xl rounded-2xl">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="card-title text-2xl font-bold">
+                                <i class="fas fa-user-circle text-primary"></i> Profile
+                            </h2>
+                            <button class="btn btn-ghost btn-sm btn-circle" onclick="editProfile()">
+                                <i class="fas fa-edit text-xl"></i>
+                            </button>
+                        </div>
+                        <div id="profileGrid" class="space-y-4">
+                            <!-- Loading state -->
+                            <div class="skeleton h-12 w-full"></div>
+                            <div class="skeleton h-12 w-full"></div>
+                            <div class="skeleton h-12 w-full"></div>
+                        </div>
+                        <div class="card-actions mt-6">
+                            <button onclick="editProfile()" class="btn btn-primary btn-block rounded-xl">
+                                Update Information
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Column -->
+            <section class="lg:col-span-2 space-y-6 animate-fadeIn" style="animation-delay: 0.3s;">
+                <div class="card bg-base-100 shadow-xl rounded-2xl min-h-[400px]">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="card-title text-2xl font-bold">
+                                <i class="fas fa-receipt text-primary"></i> Order History
+                            </h2>
+                            <button onclick="refreshOrders()" class="btn btn-ghost btn-sm">
+                                <i class="fas fa-sync-alt"></i> Sync
+                            </button>
+                        </div>
+                        
+                        <div id="ordersList" class="space-y-4">
+                            <!-- Orders will be injected here -->
+                            <div class="flex flex-col items-center justify-center py-20 opacity-50">
+                                <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                                <p>Loading your orders...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded mt-12">
+        <nav class="grid grid-flow-col gap-4">
+            <a href="index.html" class="link link-hover">Home</a>
+            <a href="index.html#about" class="link link-hover">About us</a>
+            <a href="index.html#contact" class="link link-hover">Contact</a>
+        </nav> 
+        <nav>
+            <div class="grid grid-flow-col gap-4 text-2xl">
+                <a class="text-primary hover:scale-110 transition-transform"><i class="fab fa-facebook"></i></a>
+                <a class="text-primary hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>
+                <a class="text-primary hover:scale-110 transition-transform"><i class="fab fa-twitter"></i></a>
+            </div>
+        </nav> 
+        <aside>
+            <p>&copy; 2025 Sweet Delights Bakery. All rights reserved.</p>
+            <p class="text-sm opacity-60">Powered by <a href="https://iyonicorp.com" target="_blank" class="font-bold hover:text-primary">iyonicorp</a></p>
+        </aside>
+    </footer>
+
+    <!-- Edit Profile Modal -->
+    <dialog id="editProfileModal" class="modal">
+        <div class="modal-box max-w-md rounded-3xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">✕</button>
+            </form>
+            <h3 class="font-bold text-2xl mb-6 flex items-center gap-3">
+                <i class="fas fa-user-edit text-primary"></i> Edit Profile
+            </h3>
+            <form id="editProfileForm" class="space-y-4">
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Full Name</span></label>
+                    <input type="text" id="editName" class="input input-bordered rounded-xl focus:border-primary" required />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Email (Read-only)</span></label>
+                    <input type="email" id="editEmail" class="input input-bordered rounded-xl bg-base-200" disabled />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Phone Number</span></label>
+                    <input type="tel" id="editPhone" class="input input-bordered rounded-xl focus:border-primary" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Delivery Address</span></label>
+                    <textarea id="editAddress" class="textarea textarea-bordered rounded-xl h-24 focus:border-primary"></textarea>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn btn-primary btn-block rounded-xl">Save Changes</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <script>
+        const API_URL = 'http://localhost:5001/api';
+        let user = null;
+        const token = localStorage.getItem('bakery_token');
+
+        // Check authentication
+        try {
+            const savedUser = localStorage.getItem('bakery_user');
+            user = savedUser ? JSON.parse(savedUser) : null;
+            if (!user || user.role !== 'user' || !token) {
+                window.location.href = 'index.html';
+            }
+        } catch (e) {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize UI
+        function initUI() {
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('welcomeName').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+        }
+
+        async function fetchOrders() {
+            try {
+                const res = await fetch(`${API_URL}/orders`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error('Failed to fetch');
+                const orders = await res.json();
+                renderOrders(orders);
+                updateStats(orders);
+            } catch (err) {
+                console.error('Error loading orders:', err);
+                document.getElementById('ordersList').innerHTML = `
+                    <div class="alert alert-error rounded-xl">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Failed to load orders. Please check your connection.</span>
+                        <button onclick="refreshOrders()" class="btn btn-sm">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        function loadProfile() {
+            const phone = user.phone || localStorage.getItem('bakery_phone') || 'Not set';
+            const address = user.address || (localStorage.getItem('bakery_address') ? JSON.parse(localStorage.getItem('bakery_address')).street : null) || 'Not set';
+
+            const fields = [
+                { label: 'Full Name', value: user.name, icon: 'fa-user' },
+                { label: 'Email', value: user.email, icon: 'fa-envelope' },
+                { label: 'Phone', value: phone, icon: 'fa-phone' },
+                { label: 'Address', value: address, icon: 'fa-map-marker-alt' }
+            ];
+
+            document.getElementById('profileGrid').innerHTML = fields.map(field => `
+                <div class="flex items-start gap-4 p-3 bg-base-200/50 rounded-xl">
+                    <div class="w-10 h-10 rounded-lg bg-base-100 flex items-center justify-center text-primary shadow-sm">
+                        <i class="fas ${field.icon}"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-wider opacity-60">${field.label}</p>
+                        <p class="font-semibold break-all text-base-content">${field.value}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editProfile() {
+            document.getElementById('editName').value = user.name || '';
+            document.getElementById('editEmail').value = user.email || '';
+            document.getElementById('editPhone').value = user.phone || localStorage.getItem('bakery_phone') || '';
+            
+            const savedAddress = localStorage.getItem('bakery_address');
+            let addressText = user.address || '';
+            if (!addressText && savedAddress) {
+                try { addressText = JSON.parse(savedAddress).street || ''; } catch(e) {}
+            }
+            document.getElementById('editAddress').value = addressText;
+            
+            document.getElementById('editProfileModal').showModal();
+        }
+
+        document.getElementById('editProfileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = e.submitter;
+            btn.innerHTML = '<span class="loading loading-spinner"></span> Saving...';
+            btn.disabled = true;
+
+            const updateData = {
+                name: document.getElementById('editName').value.trim(),
+                phone: document.getElementById('editPhone').value.trim(),
+                address: document.getElementById('editAddress').value.trim()
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/auth/profile`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(updateData)
+                });
+                
+                if (res.ok) {
+                    const updatedUser = await res.json();
+                    user = { ...user, ...updatedUser };
+                    localStorage.setItem('bakery_user', JSON.stringify(user));
+                    
+                    // Local backups
+                    localStorage.setItem('bakery_phone', updateData.phone);
+                    localStorage.setItem('bakery_address', JSON.stringify({ street: updateData.address }));
+                    
+                    initUI();
+                    loadProfile();
+                    document.getElementById('editProfileModal').close();
+                    showNotification('Profile updated successfully!', 'success');
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (err) {
+                showNotification('Failed to update profile', 'error');
+            } finally {
+                btn.innerHTML = 'Save Changes';
+                btn.disabled = false;
+            }
+        });
+
+        function updateStats(orders) {
+            const total = orders.length;
+            const pending = orders.filter(o => ['pending', 'processing'].includes(o.orderStatus)).length;
+            const completed = orders.filter(o => o.orderStatus === 'completed').length;
+            
+            document.getElementById('totalOrders').textContent = total;
+            document.getElementById('pendingOrders').textContent = pending;
+            document.getElementById('completedOrders').textContent = completed;
+        }
+
+        function renderOrders(orders) {
+            const container = document.getElementById('ordersList');
+            
+            if (!orders || orders.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-12 text-center space-y-4">
+                        <div class="w-24 h-24 rounded-full bg-base-200 flex items-center justify-center text-primary text-4xl">
+                            <i class="fas fa-shopping-basket"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">No orders yet</h3>
+                            <p class="opacity-60 max-w-xs">Hungry for something sweet? Check out our delicious menu!</p>
+                        </div>
+                        <a href="index.html#menu" class="btn btn-primary rounded-xl">Browse Menu</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = orders.map(order => {
+                const statusColors = {
+                    pending: 'badge-warning',
+                    processing: 'badge-info',
+                    completed: 'badge-success',
+                    cancelled: 'badge-error'
+                };
+                
+                const status = order.orderStatus || 'pending';
+                const date = order.createdAt ? new Date(order.createdAt).toLocaleDateString(undefined, {
+                    year: 'numeric', month: 'short', day: 'numeric'
+                }) : 'Recently';
+
+                return `
+                    <div class="collapse collapse-arrow bg-base-200/50 rounded-2xl hover:bg-base-200 transition-colors border border-base-300">
+                        <input type="checkbox" /> 
+                        <div class="collapse-title flex justify-between items-center pr-12">
+                            <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+                                <span class="font-bold text-lg">#${String(order._id || '').slice(-6).toUpperCase()}</span>
+                                <span class="text-sm opacity-60">${date}</span>
+                            </div>
+                            <div class="badge ${statusColors[status] || 'badge-ghost'} font-bold uppercase text-[10px] tracking-widest px-3 py-2">
+                                ${status}
+                            </div>
+                        </div>
+                        <div class="collapse-content">
+                            <div class="divider my-0"></div>
+                            <div class="py-4 space-y-3">
+                                <div class="flex flex-col gap-2">
+                                    ${(order.products || []).map(p => `
+                                        <div class="flex justify-between items-center text-sm">
+                                            <span><span class="font-bold text-primary">${p.quantity}x</span> ${p.name || p.product?.name || 'Item'}</span>
+                                            <span class="font-mono">KSh ${(p.price || 0).toLocaleString()}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="divider my-1"></div>
+                                <div class="flex justify-between items-center font-bold text-lg">
+                                    <span>Total</span>
+                                    <span class="text-primary">KSh ${(order.totalAmount || 0).toLocaleString()}</span>
+                                </div>
+                                ${order.paymentStatus === 'paid' ? `
+                                    <div class="alert alert-success py-2 px-4 text-xs font-bold rounded-xl mt-4">
+                                        <i class="fas fa-check-circle"></i> Payment Verified
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function refreshOrders() {
+            fetchOrders();
+        }
+
+        function showNotification(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-top toast-end z-[1000]`;
+            toast.innerHTML = `
+                <div class="alert alert-${type} shadow-lg rounded-2xl animate-fadeIn">
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.clear(); // Clear all bakery data
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize
+        initUI();
+        loadProfile();
+        fetchOrders();
+    </script>
+</body>
+</html>
