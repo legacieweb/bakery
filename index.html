@@ -3,33 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Indulge in the finest artisan breads, pastries, and cakes at Sweet Delights Bakery. Freshly baked daily with premium ingredients. Visit us today!">
-  <meta name="keywords" content="bakery, artisan bread, pastries, cakes, fresh baking, sweet delights, sourdough, croissants">
-  <meta name="author" content="Sweet Delights Bakery">
+  <meta name="description" content="Indulge in the finest artisan breads, pastries, and cakes at Sunny Delights Bakery. Freshly baked daily with premium ingredients. Visit us today!">
+  <meta name="keywords" content="bakery, artisan bread, pastries, cakes, fresh baking, Sunny Delights, sourdough, croissants">
+  <meta name="author" content="Sunny Delights Bakery">
   <meta name="robots" content="index, follow">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sweetdelightsbakery.com/">
-  <meta property="og:title" content="Sweet Delights Bakery - Artisan Breads & Pastries">
-  <meta property="og:description" content="Indulge in the finest artisan breads, pastries, and cakes at Sweet Delights Bakery. Freshly baked daily with premium ingredients.">
+  <meta property="og:url" content="https://sunnydelights.com/">
+  <meta property="og:title" content="Sunny Delights Bakery - Artisan Breads & Pastries">
+  <meta property="og:description" content="Indulge in the finest artisan breads, pastries, and cakes at Sunny Delights Bakery. Freshly baked daily with premium ingredients.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&h=630&fit=crop">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://sweetdelightsbakery.com/">
-  <meta property="twitter:title" content="Sweet Delights Bakery - Artisan Breads & Pastries">
-  <meta property="twitter:description" content="Indulge in the finest artisan breads, pastries, and cakes at Sweet Delights Bakery. Freshly baked daily with premium ingredients.">
+  <meta property="twitter:url" content="https://sunnydelights.com/">
+  <meta property="twitter:title" content="Sunny Delights Bakery - Artisan Breads & Pastries">
+  <meta property="twitter:description" content="Indulge in the finest artisan breads, pastries, and cakes at Sunny Delights Bakery. Freshly baked daily with premium ingredients.">
   <meta property="twitter:image" content="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&h=630&fit=crop">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Bakery",
-    "name": "Sweet Delights Bakery",
+    "name": "Sunny Delights Bakery",
     "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=600&fit=crop",
-    "@id": "https://sweetdelightsbakery.com",
-    "url": "https://sweetdelightsbakery.com",
+    "@id": "https://sunnydelights.com",
+    "url": "https://sunnydelights.com",
     "telephone": "+1234567890",
     "address": {
       "@type": "PostalAddress",
@@ -55,13 +55,13 @@
       }
     ],
     "sameAs": [
-      "https://www.facebook.com/sweetdelightsbakery",
-      "https://www.instagram.com/sweetdelightsbakery"
+      "https://www.facebook.com/sunnydelights",
+      "https://www.instagram.com/sunnydelights"
     ]
   }
   </script>
-  <title>Sweet Delights Bakery - Artisan Breads & Pastries</title>
-  <link rel="canonical" href="https://sweetdelightsbakery.com/">
+  <title>Sunny Delights Bakery - Artisan Breads & Pastries</title>
+  <link rel="canonical" href="https://sunnydelights.com/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥐</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
  
@@ -98,6 +98,138 @@
       color: var(--dark-brown);
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    /* Main Page Preloader */
+    .main-preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    }
+
+    .main-preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .preloader-content {
+      text-align: center;
+    }
+
+    .preloader-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--dark-brown);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: preloaderPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes preloaderPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(212, 165, 116, 0)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.3)); }
+    }
+
+    .preloader-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(139, 69, 19, 0.1);
+      border-radius: 10px;
+      margin: 2rem auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preloader-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 40%;
+      background: var(--primary);
+      border-radius: 10px;
+      animation: preloaderProgress 2s ease-in-out infinite;
+    }
+
+    @keyframes preloaderProgress {
+      0% { left: -40%; }
+      100% { left: 100%; }
+    }
+
+    .preloader-text {
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    /* Skeleton Loading */
+    .skeleton-item {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(139, 69, 19, 0.05);
+      height: 400px;
+    }
+
+    .skeleton-img {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeletonPulse 1.5s infinite;
+    }
+
+    .skeleton-content {
+      padding: 1.5rem;
+    }
+
+    .skeleton-title {
+      height: 24px;
+      width: 70%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeletonPulse 1.5s infinite;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+
+    .skeleton-text {
+      height: 16px;
+      width: 100%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeletonPulse 1.5s infinite;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+    }
+
+    .skeleton-btn {
+      height: 40px;
+      width: 100%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeletonPulse 1.5s infinite;
+      margin-top: 1rem;
+      border-radius: 25px;
+    }
+
+    @keyframes skeletonPulse {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
     /* Floating Ingredients Animation */
@@ -141,6 +273,15 @@
       50% { 
         transform: translateY(-20px) rotate(180deg); 
         opacity: 0.3; 
+      }
+    }
+
+    @keyframes float-preloader {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+      }
+      50% { 
+        transform: translateY(-30px) rotate(20deg); 
       }
     }
 
@@ -189,24 +330,17 @@
       transition: var(--transition);
       z-index: 1001;
       position: relative;
+      animation: logoPulse 2s ease-in-out infinite;
     }
 
-    .logo::before {
-      content: '\f7ca';
-      font-family: 'Font Awesome 6 Free';
-      font-weight: 900;
-      font-size: 1.8rem;
-      color: var(--primary);
-      transition: var(--transition);
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .logo:hover {
       color: var(--primary);
-      transform: translateY(-1px);
-    }
-
-    .logo:hover::before {
-      transform: rotate(15deg) scale(1.1);
+      transform: translateY(-1px) scale(1.05);
     }
 
     .nav-links {
@@ -802,6 +936,29 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
       margin-top: 2rem;
+    }
+
+    /* Products Preloader */
+    .products-preloader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      grid-column: 1 / -1;
+    }
+
+    .preloader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(212, 165, 116, 0.3);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .menu-item {
@@ -1689,6 +1846,23 @@
   </style>
 </head>
 <body>
+  <!-- Main Page Preloader -->
+  <div class="main-preloader" id="mainPreloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">
+        <img src="https://i.imgur.com/TuIk94O.png" alt="Sunny Delights Bakery" style="height: 120px; width: auto; margin-bottom: 1rem;">
+      </div>
+      <div class="preloader-bar">
+        <div class="preloader-progress"></div>
+      </div>
+      <p class="preloader-text">Baking Magic...</p>
+    </div>
+    <div style="position: absolute; top: 10%; left: 10%; font-size: 2rem; animation: float-preloader 6s infinite; opacity: 0.2;">🥐</div>
+    <div style="position: absolute; top: 20%; right: 15%; font-size: 2rem; animation: float-preloader 8s infinite; animation-delay: 1s; opacity: 0.2;">🥖</div>
+    <div style="position: absolute; bottom: 15%; left: 20%; font-size: 2.5rem; animation: float-preloader 7s infinite; animation-delay: 2s; opacity: 0.2;">🥨</div>
+    <div style="position: absolute; bottom: 25%; right: 10%; font-size: 2rem; animation: float-preloader 9s infinite; animation-delay: 0.5s; opacity: 0.2;">🍞</div>
+  </div>
+
   <!-- Floating Ingredients Background -->
   <div class="floating-ingredients" id="floatingIngredients"></div>
 
@@ -1696,7 +1870,7 @@
   <header id="header">
     <div class="nav-container">
       <a href="#" class="logo">
-        <span>Sweet Delights</span>
+        <img src="https://i.imgur.com/TuIk94O.png" alt="Sunny Delights Bakery" style="height: 50px; width: auto;">
       </a>
 
       <nav class="main-nav">
@@ -1792,6 +1966,36 @@
       </div>
 
       <div class="menu-grid">
+        <!-- Products Preloader -->
+        <div class="products-preloader" id="productsPreloader" style="display: contents;">
+          <div class="skeleton-item">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-content">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-btn"></div>
+            </div>
+          </div>
+          <div class="skeleton-item">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-content">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-btn"></div>
+            </div>
+          </div>
+          <div class="skeleton-item">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-content">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-btn"></div>
+            </div>
+          </div>
+        </div>
         <!-- Products loaded from database -->
       </div>
     </div>
@@ -1800,7 +2004,7 @@
   <!-- Features Section -->
   <section id="features" class="section features">
     <div class="container">
-      <h2 class="section-title fade-in-up">Why Choose Sweet Delights?</h2>
+      <h2 class="section-title fade-in-up">Why Choose Sunny Delights?</h2>
       <p class="section-subtitle fade-in-up">We're passionate about baking excellence</p>
       
       <div class="features-grid">
@@ -1846,7 +2050,7 @@
         <div class="about-text fade-in-left">
           <h3>Our Story</h3>
           <p>
-            Founded in 1995 by the passionate baker Maria Rodriguez, Sweet Delights Bakery began as a small family business with a simple mission: to bring the authentic taste of traditional European baking to our community.
+            Founded in 1995 by the passionate baker Maria Rodriguez, Sunny Delights Bakery began as a small family business with a simple mission: to bring the authentic taste of traditional European baking to our community.
           </p>
           <p>
             Over the years, we've grown from a small neighborhood bakery to a beloved local institution, but our commitment to quality and tradition remains unchanged. Every recipe is crafted with care, using techniques passed down through generations.
@@ -2003,7 +2207,7 @@
       
       <div class="location-content">
         <div class="location-info fade-in-left">
-          <h3>Sweet Delights Bakery</h3>
+          <h3>Sunny Delights Bakery</h3>
           
           <div class="info-item">
             <div class="info-icon">
@@ -2241,7 +2445,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <h3>Sweet Delights Bakery</h3>
+          <h3>Sunny Delights Bakery</h3>
           <p>Bringing you the finest artisan breads, pastries, and cakes since 1995. Made fresh daily with love and tradition.</p>
           <div class="social-links">
             <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
@@ -2280,7 +2484,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 Sweet Delights Bakery. All rights reserved. | <span class="powered-by">powered by iyonicorp</span></p>
+        <p>&copy; 2026 Sunny Delights Bakery. All rights reserved. | <span class="powered-by">powered by iyonicorp</span></p>
       </div>
     </div>
   </footer>
@@ -2609,7 +2813,7 @@
     async function fetchProducts() {
       try {
         if (productsFetched) return;
-        
+
         const res = await fetch(`${API_URL}/products`);
         const data = await res.json();
         productsFetched = true;
@@ -2617,16 +2821,26 @@
           renderProducts(data);
         } else {
           console.error('Server returned error or invalid data:', data);
+          // Hide preloader even on error
+          const preloader = document.getElementById('productsPreloader');
+          if (preloader) preloader.style.display = 'none';
         }
       } catch (err) {
         console.error('Error fetching products:', err);
         productsFetched = true;
+        // Hide preloader on error
+        const preloader = document.getElementById('productsPreloader');
+        if (preloader) preloader.style.display = 'none';
       }
     }
 
     function renderProducts(products) {
       const menuGrid = document.querySelector('.menu-grid');
       if (!menuGrid) return;
+
+      // Hide preloader
+      const preloader = document.getElementById('productsPreloader');
+      if (preloader) preloader.style.display = 'none';
 
       // Only render products if we got valid array data from server
       if (!products || !Array.isArray(products) || products.length === 0) {
@@ -3086,6 +3300,16 @@
       }
     }
 
+    function hideMainPreloader() {
+      const preloader = document.getElementById('mainPreloader');
+      if (preloader) {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 800);
+      }
+    }
+
     // Initialize all functions
     document.addEventListener('DOMContentLoaded', () => {
       createFloatingIngredients();
@@ -3099,7 +3323,16 @@
 
       // Backend Initializations
       updateUI();
-      fetchProducts();
+      
+      // Load products and then hide main preloader
+      const startTime = Date.now();
+      fetchProducts().finally(() => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1500 - elapsedTime);
+        
+        setTimeout(hideMainPreloader, remainingTime);
+      });
+
       document.getElementById('orderForm').addEventListener('submit', handleOrderSubmission);
     });
 
